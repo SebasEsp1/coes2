@@ -92,7 +92,21 @@
                     console.log(this.solicitudes.id_CENTRAL);
                     console.log(this.solicitudes.comentario);
                     axios.post("http://localhost:8080/solicitudes",this.solicitudes)
-                        .then(response => (this.mensaje=response.data))
+                        .then(response => {
+                            this.limpiar();
+                            alert("Registrado correctamente")
+                        })  
+                        .catch(error => {
+                            alert("No se pudo registrar")
+                            console.log(error);
+                        })
+                },
+                limpiar: function(event){
+                    this.solicitudes.id_EMPRESA = "";
+                    this.solicitudes.id_EQUIPO = "";
+                    this.solicitudes.id_CENTRAL = "";
+                    this.solicitudes.comentario = "";
+                    this.solicitudes.fecha_TENTATIVA = "";
                 }
             }
         });

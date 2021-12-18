@@ -75,7 +75,6 @@
             <p style="color: #264570"> Espacio</p>
             <p style="color: #264570"> Espacio</p>
             <button class="button is-success" v-on:click="agregar">Registrar</button>
-
         </u1>
     </center>
     </div>
@@ -85,7 +84,6 @@
             data:   {
                 Saludo: "Rellene los siguientes campos",
                 ensayo: {},
-                mensaje: null
             },
             methods: {
                 agregar: function(event){
@@ -95,7 +93,20 @@
                     console.log(this.ensayo.id_TRABAJADOR);
                     console.log(this.ensayo.id_SOLICITUD);
                     axios.post("http://localhost:8080/ensayo",this.ensayo)
-                        .then(response => (this.mensaje=response.data))
+                        .then(response => {
+                            this.limpiar();
+                            alert("Registrado correctamente")
+                        })  
+                        .catch(error => {
+                            alert("No se pudo registrar")
+                            console.log(error);
+                        })
+                },
+                limpiar: function(event){
+                    this.ensayo.id_SOLICITUD = "";
+                    this.ensayo.id_TRABAJADOR = "";
+                    this.ensayo.comentario = "";
+                    this.ensayo.fecha_PROGRAMADA = "";
                 }
             }
         });
